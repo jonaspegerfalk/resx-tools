@@ -8,7 +8,7 @@ using System.Collections;
 
 namespace ResxTools
 {
-    class LanguageResource
+    public class LanguageResource
     {
         private ResXResourceReader resXResourceReader;
 
@@ -17,7 +17,7 @@ namespace ResxTools
             this.resXResourceReader = resXResourceReader;
         }
 
-        public IEnumerable<string> ResourceNames
+        public IEnumerable<string> ResourceKeys
         {
             get
             {

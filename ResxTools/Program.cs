@@ -19,7 +19,7 @@ namespace ResxTools
             string filename = args[0];
             var resources = LanguageResource.ReadFromResourceFile(filename);
 
-            resources.ResourceNames.ToList().ForEach(r => Console.WriteLine(r));
+            resources.ResourceKeys.ToList().ForEach(r => Console.WriteLine(r));
 
 
             Console.ReadKey();
