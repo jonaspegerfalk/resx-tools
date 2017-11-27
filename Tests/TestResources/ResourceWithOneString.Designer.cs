@@ -61,7 +61,7 @@ namespace Tests.TestResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Value.
+        ///   Looks up a localized string similar to Value1.
         /// </summary>
         internal static string String1 {
             get {
