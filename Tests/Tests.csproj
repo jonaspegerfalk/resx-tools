@@ -54,6 +54,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ResourceGeneratorUnitTests.cs" />
     <Compile Include="TextGeneratorUnitTests.cs" />
     <Compile Include="LanguageResourceUnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
