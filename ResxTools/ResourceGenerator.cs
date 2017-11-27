@@ -24,12 +24,16 @@ namespace ResxTools
         public string WriteToString()
         {
             MemoryStream stream = new MemoryStream();
-            ResXResourceWriter writer = new ResXResourceWriter(stream);
-            data.ToList().ForEach(d=>writer.AddResource(new ResXDataNode(d.Key, d.Value) { Comment = d.Comment }));
-            writer.Generate();
-            stream.Position = 0;
+            WriteToStream(stream);
             var streamReader = new StreamReader(stream);
             return streamReader.ReadToEnd() ;
+        }
+
+        public void WriteToStream(MemoryStream stream) {
+            ResXResourceWriter writer = new ResXResourceWriter(stream);
+            data.ToList().ForEach(d => writer.AddResource(new ResXDataNode(d.Key, d.Value) { Comment = d.Comment }));
+            writer.Generate();
+            stream.Position = 0;
         }
     }
 }
