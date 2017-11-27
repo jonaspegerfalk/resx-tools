@@ -29,9 +29,12 @@ namespace ResxTools
             return streamReader.ReadToEnd() ;
         }
 
-        public ResourceGenerator MapValues(Func<string, string> mapFunction)
+        public ResourceGenerator MapValues(Func<ResourceData, string> mapFunction)
         {
-            data.ToList().ForEach(val => val.Value = mapFunction(val.Value));
+            this.data = this.data.ToList();
+            foreach (var val in this.data) { 
+                val.Value = mapFunction(val);
+                };
             return this;
         }
 

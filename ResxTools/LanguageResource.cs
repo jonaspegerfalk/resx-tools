@@ -48,7 +48,7 @@ namespace ResxTools
 
         private int ParseCommentForMaxLength(string comment)
         {
-            var comments = comment.Split(';');
+            var comments = comment.Split(':');
             var maxLengthString = comments.Where(c => c.StartsWith("maxlength", StringComparison.OrdinalIgnoreCase));
             var a = maxLengthString.Select(c => c.Split('=').Skip(1).Take(1).FirstOrDefault()).FirstOrDefault();
 
