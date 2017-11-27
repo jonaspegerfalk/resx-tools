@@ -24,12 +24,9 @@ namespace UnitTests
             var firstResource = resources.Resources.First();
 
             Assert.Equal("String1", firstResource.Key);
-            Assert.Equal("Value", firstResource.Value);
+            Assert.Equal("Value1", firstResource.Value);
             Assert.Equal(10, firstResource.MaxLength);
             Assert.Equal("MaxLength=10", firstResource.Comment);
-
-
-
         }
 
     }
