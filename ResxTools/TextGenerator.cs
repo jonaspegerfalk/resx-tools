@@ -12,9 +12,17 @@ namespace ResxTools
      
         public static string Generate(int length)
         {
-            const string chars = "abcdefghijklmnopqrstuvwxyz            ";
-            return new string(Enumerable.Repeat(chars, length)
-              .Select(s => s[random.Next(s.Length)]).ToArray());
+            const string chars = "abcdefghijklmnopqrstuvwxyz";
+            var result = Enumerable
+                .Repeat(chars, length)
+                .Select(s => s[random.Next(s.Length)])
+                .ToArray();
+
+            for (var i = 1; i< result.Length; i++)
+            {
+                if (random.NextDouble() < .3 && result[i-1] != ' ') result[i] = ' ';
+            }
+            return new String(result);
         }
     }
 }
