@@ -12,9 +12,7 @@ namespace UnitTests
         [Fact]
         public void WriteToString_ShouldGenerateResourceFile()
         {
-            var resources = new List<ResourceData>() {
-                new ResourceData() { Key = "KeyString1", Value = "Value1", Comment = "MaxLength=20" },
-                new ResourceData() { Key = "KeyString2", Value = "Value2", Comment = "MaxLength=20" }};
+            var resources = CreateResourceData();
 
             var generator = ResourceGenerator.CreateGenerator(resources);
             var generatedResourceData = generator.WriteToString();
@@ -28,9 +26,7 @@ namespace UnitTests
         [Fact]
         public void WriteToStream_ShouldGenerateResourceFile()
         {
-            var resources = new List<ResourceData>() {
-                new ResourceData() { Key = "KeyString1", Value = "Value1", Comment = "MaxLength=20" },
-                new ResourceData() { Key = "KeyString2", Value = "Value2", Comment = "MaxLength=20" }};
+            var resources = CreateResourceData();
 
             var stream = new MemoryStream();
             ResourceGenerator.CreateGenerator(resources).WriteToStream(stream);
@@ -41,6 +37,27 @@ namespace UnitTests
             Assert.Contains("KeyString1", s);
             Assert.Contains("MaxLength", s);
         }
+
+
+        [Fact]
+        public void MapValues_ValueShouldBeUpdated()
+        {
+            var resources = CreateResourceData();
+
+            var stream = new MemoryStream();
+            ResourceGenerator.CreateGenerator(resources).MapValues((val => "ABC123")).WriteToStream(stream);
+
+            var sr = new StreamReader(stream);
+            var s = sr.ReadToEnd();
+            Assert.NotEmpty(s);
+            Assert.DoesNotContain("Value1", s);
+            Assert.Contains("ABC123", s);
+        }
+
+
+        private static List<ResourceData> CreateResourceData() => new List<ResourceData>() {
+                new ResourceData() { Key = "KeyString1", Value = "Value1", Comment = "MaxLength=20" },
+                new ResourceData() { Key = "KeyString2", Value = "Value2", Comment = "MaxLength=20" }};
 
 
     }

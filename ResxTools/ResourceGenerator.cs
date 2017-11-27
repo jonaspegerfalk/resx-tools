@@ -29,7 +29,13 @@ namespace ResxTools
             return streamReader.ReadToEnd() ;
         }
 
-        public void WriteToStream(MemoryStream stream) {
+        public ResourceGenerator MapValues(Func<string, string> mapFunction)
+        {
+            data.ToList().ForEach(val => val.Value = mapFunction(val.Value));
+            return this;
+        }
+
+        public void WriteToStream(Stream stream) {
             ResXResourceWriter writer = new ResXResourceWriter(stream);
             data.ToList().ForEach(d => writer.AddResource(new ResXDataNode(d.Key, d.Value) { Comment = d.Comment }));
             writer.Generate();
