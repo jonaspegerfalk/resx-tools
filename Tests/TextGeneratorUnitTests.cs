@@ -15,6 +15,12 @@ namespace UnitTests
             Assert.Equal(20, t.Length);
         }
 
+        [Fact]
+        public void GenerateText_ShouldEndWithUnderscore()
+        {
+            string t = TextGenerator.Generate(20);
+            Assert.EndsWith("_", t);
+        }
 
     }
 }

@@ -22,6 +22,7 @@ namespace ResxTools
             {
                 if (random.NextDouble() < .3 && result[i-1] != ' ') result[i] = ' ';
             }
+            result[result.Length - 1] = '_';
             return new String(result);
         }
     }
