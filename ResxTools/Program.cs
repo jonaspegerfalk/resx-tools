@@ -11,7 +11,9 @@ namespace ResxTools
     {
         static void Main(string[] args)
         {
-            var a = Directory.GetCurrentDirectory();
+
+            var languages = new List<string>() { "ar", "da-DK", "de", "el-GR", "es",  "fr", "he-IL", "hi", "it", "ja-JP", "ko-KR",  "pl-PL", "Pt", "ru-RU", "zh-Hans"};
+
             if (args.Length == 0)
             {
                 Console.WriteLine($"Usage:");
@@ -24,12 +26,19 @@ namespace ResxTools
             var resources = LanguageResource.ReadFromResourceFile(fullFileName);
 
             var outputFolder = Path.GetDirectoryName(fullFileName);
-            var outputStream = new FileStream(Path.Combine(outputFolder, @"output.resx"), FileMode.OpenOrCreate, FileAccess.Write);
+            foreach (var lang in languages)
+            {
+                Console.Write($"Translating to {lang} ");
+                var outputStream = new FileStream(Path.Combine(outputFolder, $"LanguageResource.{lang}.resx"), FileMode.OpenOrCreate, FileAccess.Write);
 
-            ResourceGenerator
-                .CreateGenerator(resources.Resources)
-                .MapValues(data => TextGenerator.Generate(data.MaxLength))
-                .WriteToStream(outputStream);
+                TranslationService translationService = TranslationService.CreateTranslationService(lang.Substring(0,2));
+                ResourceGenerator
+                    .CreateGenerator(resources.Resources)
+                    //.MapValues(data => TextGenerator.Generate(data.MaxLength))
+                    .MapValues(data => translationService.TranslateText(data.Value))
+                    .WriteToStream(outputStream);
+                Console.WriteLine($"");
+            }
 
             Console.WriteLine($"Resources written to {outputFolder}");
             Console.ReadKey();
